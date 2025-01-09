@@ -5,16 +5,5 @@ app.get("/schedule", async (req, res) => {
 });
 
 // Post
-app.post("/schedule", async (req, res) => {
-  const data = req.body
 
-  const results = await knex('flights').insert({
-    name: data.name,
-    description: data.description,
-    price: data.price,
-    stock: data.stock,
-  })
-
-  res.json(results)
-});
 
