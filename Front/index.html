@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="../axios.min.js"></script>
+    <title>Option</title>
+  </head>
+  <body>
+    <h1>Pilih Opsi</h1>
+    <select id="selectCity">
+      <option value="">Pilih</option>
+    </select>
+
+    <h1>Pilih Tanggal</h1>
+    <label for="departure">Departure Date:</label>
+    <input type="date" id="departure" name="departure" required>
+
+    <script>
+      // let flightHTML = "";
+
+      //   axios.get("http://localhost:3002/cities").then((response) => {
+      //     const flightData = response.data
+      //     flightData.forEach((flight) => {
+      //       flightHTML +=
+      //       `
+      //         <option value="${flight.id}">${flight.airport_city} - ${flight.alias_city}</option>
+
+      //       `
+      //     });
+      //     console.log(flightData);
+      //     document.getElementById("selectCity").innerHTML = flightHTML;
+      //   });
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const selects = document.querySelectorAll("#selectCity");
+
+        axios.get("http://localhost:3002/cities").then((response) => {
+          const data = response.data;
+          selects.forEach((select) => {
+            data.forEach((flight) => {
+              const option = document.createElement("option");
+              option.value = flight.id;
+              option.textContent = `${flight.airport_city} - ${flight.alias_city}`;
+              select.appendChild(option);
+            });
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
