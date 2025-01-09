@@ -19,7 +19,6 @@ app.use(express.json());
 // Controller
 require("./module/schedule");
 require("./module/cities");
-require("./module/availability");
 
 
 app.listen(3002);
