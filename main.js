@@ -19,7 +19,7 @@ app.use(express.json());
 // Controller
 require("./module/schedule");
 require("./module/cities");
+require("./module/register");
+require("./module/login");
 
-
-app.listen(3002);
-
+app.listen(3002)

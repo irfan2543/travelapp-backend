@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h2>Login</h2>
+        <form id="loginForm">
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+        <div id="message" class="error"></div>
+        <center>
+            <p>Don't Have an Account? <a href="register.html" class="register-link">Register Here!</a></p>
+        </center>
+    </div>
+    <script>
+        window.onload = function() {
+            if (localStorage.getItem('userId')) {
+                window.location.href = 'dashboard.html';
+            }
+        };
+
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault(); 
+
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData);
+
+            try {
+                const response = await axios.post('http://localhost:3002/login', data);
+
+                localStorage.setItem('userId', response.data.userId); 
+                document.getElementById('message').textContent = response.data.message;
+                window.location.href = 'dashboard.html';
+            } catch (error) {
+                document.getElementById('message').textContent = 'Error: ' + (error.response ? error.response.data.message : error.message);
+            }
+        });
+    </script>
+</body>
+</html>

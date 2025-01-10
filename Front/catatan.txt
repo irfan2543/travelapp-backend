@@ -1,0 +1,1 @@
+Untuk file register, login, logout dan dashboard bisa dihapus. Penggunaannya hanya digunakan untuk mempermudah saja.
