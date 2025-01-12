@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Your Dashboard</title>
+</head>
+<body>
+    <div>
+        <h1>Welcome, <span id="userName"></span>!</h1>
+        <p>Thank you for Using Our Website. You can now access your dashboard and explore our services.</p>
+        <a href="logout.html" id="logoutButton">Logout</a>
+    </div>
+
+    <script>
+        // Memeriksa status login saat halaman dimuat
+        window.onload = async function() {
+            // Jika tidak ada userId, arahkan ke login.html
+            const userId = localStorage.getItem('userId');
+            if (!userId) {
+                window.location.href = 'login.html';
+            } else {
+                try {
+                    // Ambil data pengguna dari server
+                    const response = await fetch(`http://localhost:3002/user/${userId}`, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        }
+                    });
+
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+
+                    const data = await response.json();
+                    const firstName = data.user.first_name; // Ambil nama depan dari data pengguna
+                    document.getElementById('userName').textContent = firstName; // Tampilkan nama depan
+                } catch (error) {
+                    console.error('Error fetching user data:', error);
+                    document.getElementById('userName').textContent = 'User  '; // Tampilkan default jika ada kesalahan
+                }
+            }
+        };
+
+        // Logout functionality
+        document.getElementById('logoutButton').addEventListener('click', function() {
+            localStorage.removeItem('userId'); // Hapus userId dari localStorage
+            localStorage.removeItem('userName'); // Hapus userName dari localStorage
+            window.location.href = 'login.html'; // Arahkan ke halaman login
+        });
+    </script>
+</body>
+</html>
