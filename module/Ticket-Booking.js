@@ -1,10 +1,10 @@
-// Read Data Cities
+// Read Data Booking
 app.get("/flight_booking", async (req, res) => {
   const results = await knex("flight_booking").select();
   res.json(results);
 });
 
-// Post Data Cities
+// Post Data Booking
 app.post("/flight_booking", async (req, res) => {
   const data = req.body;
 
@@ -22,7 +22,7 @@ app.post("/flight_booking", async (req, res) => {
   res.json(results);
 });
 
-// Delete Data Cities
+// Delete Data Booking
 app.delete("/flight_booking/:id", async (req, res) => {
   const primaryKey = req.params.id;
 
@@ -30,7 +30,7 @@ app.delete("/flight_booking/:id", async (req, res) => {
   res.json(results);
 });
 
-// Update Data Cities
+// Update Data Booking
 app.put("/flight_booking/:id", async (req, res) => {
   const primaryKey = req.params.id;
   const data = req.body;
