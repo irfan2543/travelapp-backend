@@ -1,66 +1,51 @@
-// Read All Bookings
-app.get('/booking', async (req, res) => {
-  try {
-    const results = await knex('booking').select();
-    res.json(results);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+// localhost:3002/cities
+
+// Read Data Cities
+app.get("/flight_booking", async (req, res) => {
+  const results = await knex("flight_booking").select();
+  res.json(results);
 });
 
-// Create Booking
-app.post("/booking", async (req, res) => {
-  try {
-    const data = req.body;
+// Post Data Cities
+app.post("/flight_booking", async (req, res) => {
+  const data = req.body;
 
-    const [id] = await knex('booking').insert({
-      nama: data.nama,
-      kota_asal: data.kota_asal,
-      kota_akhir: data.kota_akhir,
-      kursi: data.kursi,
-    });
+  const results = await knex("flight_booking").insert({
+    id : data.id,
+    user_id: data.user_id,
+    full_name: data.full_name,
+    email: data.email,
+    price: data.price,
+    flight_id: data.flight_id,
+    seat_id: data.seat_id,
+    booking_status: data.booking_status
+  });
 
-    res.status(201).json({ id });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+  res.json(results);
 });
 
-// Delete Booking
-app.delete("/booking/:id", async (req, res) => {
-  try {
-    const primaryKey = req.params.id;
+// Delete Data Cities
+app.delete("/flight_booking/:id", async (req, res) => {
+  const primaryKey = req.params.id;
 
-    const deleted = await knex("booking").where("id", primaryKey).del();
-    if (!deleted) {
-      return res.status(404).json({ error: "Booking not found" });
-    }
-
-    res.json({ message: "Booking deleted successfully" });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+  const results = await knex("flight_booking").where("id", primaryKey).del();
+  res.json(results);
 });
 
-// Update Booking
-app.put("/booking/:id", async (req, res) => {
-  try {
-    const primaryKey = req.params.id;
-    const data = req.body;
+// Update Data Cities
+app.put("/flight_booking/:id", async (req, res) => {
+  const primaryKey = req.params.id;
+  const data = req.body;
 
-    const updated = await knex("booking").where("id", primaryKey).update({
-      nama: data.nama,
-      kota_asal: data.kota_asal,
-      kota_akhir: data.kota_akhir,
-      kursi: data.kursi,
-    });
-
-    if (!updated) {
-      return res.status(404).json({ error: "Booking not found" });
-    }
-
-    res.json({ message: "Booking updated successfully" });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+  const results = await knex("flight_booking").where("id", primaryKey).update({
+    id : data.id,
+    user_id: data.user_id,
+    full_name: data.full_name,
+    email: data.email,
+    price: data.price,
+    flight_id: data.flight_id,
+    seat_id: data.seat_id,
+    booking_status: data.booking_status
+  });
+  res.json(results);
 });
