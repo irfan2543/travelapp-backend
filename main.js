@@ -9,7 +9,7 @@ global.knex = require("knex")({
     port: 443,
     user: "kelompok3",
     password: "33445566",
-    database: "travelapp",
+    database: "travel",
   },
 });
 
@@ -21,5 +21,6 @@ require("./module/schedule");
 require("./module/cities");
 require("./module/register");
 require("./module/login");
+require("./module/Ticket-Booking");
 
 app.listen(3002)
