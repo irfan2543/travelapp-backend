@@ -1,15 +1,14 @@
 // Read Data Booking
-app.get("/flight_booking", async (req, res) => {
+app.get("/Ticket", async (req, res) => {
   const results = await knex("flight_booking").select();
   res.json(results);
 });
 
 // Post Data Booking
-app.post("/flight_booking", async (req, res) => {
+app.post("/Ticket", async (req, res) => {
   const data = req.body;
 
   const results = await knex("flight_booking").insert({
-    id : data.id,
     user_id: data.user_id,
     full_name: data.full_name,
     email: data.email,
@@ -23,7 +22,7 @@ app.post("/flight_booking", async (req, res) => {
 });
 
 // Delete Data Booking
-app.delete("/flight_booking/:id", async (req, res) => {
+app.delete("/Ticket/:id", async (req, res) => {
   const primaryKey = req.params.id;
 
   const results = await knex("flight_booking").where("id", primaryKey).del();
@@ -31,12 +30,11 @@ app.delete("/flight_booking/:id", async (req, res) => {
 });
 
 // Update Data Booking
-app.put("/flight_booking/:id", async (req, res) => {
+app.put("/Ticket/:id", async (req, res) => {
   const primaryKey = req.params.id;
   const data = req.body;
 
   const results = await knex("flight_booking").where("id", primaryKey).update({
-    id : data.id,
     user_id: data.user_id,
     full_name: data.full_name,
     email: data.email,
