@@ -1,6 +1,8 @@
 const express = require("express");
 const cors = require("cors");
+
 global.app = express();
+global.cron = require("node-cron")
 
 global.knex = require("knex")({
   client: "mysql",
@@ -16,11 +18,13 @@ global.knex = require("knex")({
 app.use(cors());
 app.use(express.json());
 
+
 // Controller
 require("./module/schedule");
 require("./module/cities");
 require("./module/register");
 require("./module/login");
+require("./module/flights");
 require("./module/Ticket");
 
 app.listen(3002)

@@ -2,14 +2,14 @@ const crypto = require('crypto');
 const { app } = global; 
 
 app.post('/register', async (req, res) => {
-    const { email, password, first_name, last_name } = req.body;
+    const { email, hashed_password, first_name, last_name } = req.body;
 
-    if (!email || !password || !first_name || !last_name) {
+    if (!email || !hashed_password || !first_name || !last_name) {
         return res.status(400).json({ message: 'Semua field harus diisi' });
     }
 
     try {
-        const hashedPassword = crypto.createHash('md5').update(password).digest('hex');
+        const hashedPassword = crypto.createHash('md5').update(hashed_password).digest('hex');
 
         const results = await knex('users').insert({
             email,
@@ -17,7 +17,6 @@ app.post('/register', async (req, res) => {
             first_name,
             last_name,
             roles: 'user', 
-            created_at: new Date(),
         });
 
         const userId = results[0]; 
