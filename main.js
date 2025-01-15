@@ -25,6 +25,6 @@ require("./module/cities");
 require("./module/register");
 require("./module/login");
 require("./module/flights");
-require("./module/Ticket-Booking");
+require("./module/Ticket");
 
 app.listen(3002)
