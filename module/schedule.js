@@ -1,3 +1,4 @@
+
 app.get("/schedule", async (req, res) => {
   const results = await knex("flights as f")
   .join('cities as c1 ', 'f.city_departure', '=', 'c1.id') //City Departure
@@ -36,4 +37,26 @@ app.post('/schedule', async (req, res) => {
   }
 })
 
+app.delete('/schedule', async (req, res) => {
+  const { flight_id, id } = req.body;
+  console.log('ID yang diterima:', id);
+  try{
+    
+    let deleteSeats = await knex('flight_seats')
+    .where({flight_id}).del()
+
+    let deleteFlight = await knex('flights')
+    .where({id}).del()
+
+    if(deleteFlight){
+      res.status(200).json({message : "Penerbangan Berhasil Di Hapus!"})
+    }else{
+      res.status(404).json({message : "Penerbangan Tidak Ditemukan"})
+    }
+
+  }catch(err){
+    console.error(err)
+    res.status(500).json({message : "Data Error!"})
+  }
+})
 
