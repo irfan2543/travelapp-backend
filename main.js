@@ -29,5 +29,6 @@ require("./module/Ticket");
 require("./module/user");
 require("./module/seat");
 require("./module/history");
+require("./module/payment");
 
 app.listen(3002)
