@@ -71,8 +71,6 @@ app.put('/Ticket/:id', async (req, res) => {
       total_price,
       status : status,
     })
-
-      console.log("numberSeatID:", numberSeatID);
       const bookSeat = await knex('booking_seats').insert(
         numberSeatID.map((seat) => ({
             date_flight_id : id,
