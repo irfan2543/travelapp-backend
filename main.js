@@ -26,5 +26,8 @@ require("./module/register");
 require("./module/login");
 require("./module/flights");
 require("./module/Ticket");
+require("./module/user");
+require("./module/seat");
+require("./module/history");
 
 app.listen(3002)

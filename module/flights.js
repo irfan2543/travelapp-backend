@@ -1,4 +1,3 @@
-
 app.post('/flights', async(req, res) => {
 
     const data = req.body
