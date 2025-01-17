@@ -41,7 +41,7 @@ cron.schedule("* * * * *", async () => {
 app.delete("/Ticket/:id", async (req, res) => {
   const primaryKey = req.params.id;
 
-  const results = await knex("flight_booking").where("id", primaryKey).del();
+  const results = await knex("flight_bookings").where("id", primaryKey).del();
   res.json(results);
 });
 
@@ -50,7 +50,7 @@ app.put("/Ticket/:id", async (req, res) => {
   const primaryKey = req.params.id;
   const data = req.body;
 
-  const results = await knex("flight_booking").where("id", primaryKey).update({
+  const results = await knex("flight_bookings").where("id", primaryKey).update({
     user_id: data.user_id,
     full_name: data.full_name,
     email: data.email,
