@@ -55,12 +55,17 @@ app.put('/schedule/:id', async (req, res) => {
 app.post('/schedule', async (req, res) => {
   let {date_departure, city_departure, city_arrival} = req.body
 
+  if (!date_departure) {
+    return res.status(400).json({ message: "Tanggal keberangkatan tidak boleh kosong!" });
+  }
   const results = await knex('flights').select()
   .where({city_departure, city_arrival})
   .whereRaw('DATE(date_departure) = ?', [date_departure])
 
-  if (results.length > 0){
+  if (results.length > 0){  
     res.status(201).json(results)
+  }else{
+    res.status(400).json({ message: "Tidak Ada Tanggal!" });
   }
 })
 
