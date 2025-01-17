@@ -55,3 +55,27 @@ app.get('/seat', async (req,res) => {
         res.status(500).json({message : "Terjadi Kesalahan"})
     }
 })
+
+app.get('/check-seats/:flight_id', async (req, res) => {
+    let { flight_id } = req.params;
+
+    try {
+        // Query untuk mencari jumlah kursi yang sudah dibooking
+        let bookedSeats = await knex('flight_seats')
+            .where({ flight_id })
+            .andWhere({ is_booked: 0 })
+            .count('id as booked_seats')
+            .first();
+        // Query untuk mengambil jumlah total kursi yang tersedia pada penerbangan
+        const bookedCount = bookedSeats ? bookedSeats.booked_seats : 0;
+        const  totalSeats = 60;
+
+        if (bookedCount === totalSeats) {
+            return res.status(200).json({ message : "Penuh", fully_booked:true, bookedCount});
+        } else {
+            return res.status(201).json({ message : "Masih Sisa", fully_booked:false, bookedCount });
+        }
+    } catch (error) {
+        return res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
