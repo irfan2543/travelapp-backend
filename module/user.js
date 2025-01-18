@@ -16,7 +16,7 @@ app.post('/check-user', async(req,res) => {
             return  res.status(403).json({message : "Kamu Bukan User !"})
         }else{
             console.log(user_id, email, roles)
-            res.status(200).json({message : "Berhasil", userId: user.user_id, email:user.email, roles:user.roles})
+            res.status(200).json({message : "Berhasil", userId: userId.user_id, email:userId.email, roles:userId.roles})
         }
     }catch(err) {
         console.error(err)
@@ -41,8 +41,7 @@ app.post('/check-admin', async(req,res) => {
         }else if(userId.roles !== roles){
             return  res.status(403).json({message : "Kamu Bukan Admin !"})
         }else{
-            console.log(user_id, email, roles)
-            res.status(200).json({message : "Berhasil", userId: user.user_id, email:user.email, roles:user.roles})
+            res.status(200).json({message : "Berhasil", userId: userId.user_id, email:userId.email, roles:userId.roles})
         }
     }catch(err) {
         console.error(err)
